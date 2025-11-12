@@ -1,17 +1,39 @@
-import Header from "@/components/ui/header";
+"use client";
 
-export default function HomePage() {
+import { useState } from "react";
+import CategoryButtons from "@/components/CategoryButtons";
+import CategoryCards from "@/components/CategoryCards";
+import Footer from "@/components/footer";
+import ImageSlider from "@/components/ImageSlider";
+
+export default function Page() {
+  const [selectedCategory, setSelectedCategory] = useState("recommended");
+
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+  };
+
+  // Массив картинок для слайдера
+  const sliderImages = [
+    "/sliderBK.jpg",
+    "/slider2.jpg",
+    "/slider3.jpg",
+    "/slider4.jpg",
+  ];
+
   return (
-    <>
-      <Header />
-      <main className="pt-24">
-        <section className="text-center py-16">
-          <h1 className="text-4xl font-bold mb-4"></h1>
-          <p className="text-gray-600">
-            
-          </p>
-        </section>
+    <div className="flex flex-col min-h-screen bg-black text-white">
+      {/* Основной контент */}
+      <main className="flex-grow pt-7 px-6">
+        <CategoryButtons onCategoryChange={handleCategoryChange} />
+        <CategoryCards />
+
+        {/* Слайдер под карточками */}
+        <ImageSlider images={sliderImages} />
       </main>
-    </>
+
+      {/* Footer */}
+      <Footer />
+    </div>
   );
 }
